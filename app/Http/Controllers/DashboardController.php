@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use Illuminate\Http\Request;
+use App\Models\Post;
 
 class DashboardController extends Controller
 {
@@ -15,7 +16,7 @@ public function __construct()
 
  public function index(){
 
-    // dd(auth()->user());
+    // dd(Post::find(2));
      return view('dashboard');
  }
 }
