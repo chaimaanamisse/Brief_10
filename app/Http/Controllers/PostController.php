@@ -11,7 +11,7 @@ class PostController extends Controller
        
         // $posts = Post::latest()->with(['user', 'likes'])->paginate(20);
         // $posts = Post::get();
-        $posts = Post::with(['user'])->paginate(12);
+        $posts = Post::latest()->with(['user'])->paginate(12);
 
 
         return view('posts.index', [
@@ -35,6 +35,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         // dd($post);
+        if(!$post->ownedBy(auth()->user())) {
+            dd('no');
+        }
         $post->delete();
 
         return back();
