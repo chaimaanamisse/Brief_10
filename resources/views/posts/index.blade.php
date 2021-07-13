@@ -26,6 +26,9 @@
             <a href="" class="font-bold">{{ $post->user->name}}</a>
             <span class="text-gray-600 text-sm">{{ $post->created_at->diffForHumans()}}</span>
             <p class="mb-2"> {{ $post->body }} </p>
+            
+            
+            
             @if ($post->ownedBy(auth()->user()))
             <div>
                 <form action="{{ route('posts.destroy', $post) }}" method="post">
@@ -36,6 +39,21 @@
                 </form>
             </div>
             @endif
+
+            <hr>
+            <h5>Commentaires</h5>
+            <form action="{{ route('comments.store', $post) }}"  method="post">
+            @csrf
+            <div class="form-group">
+                <label for="content"> Votre commentaire</label>
+                <textarea class="bg-gray-100 border-2 w-full p-4 rounded-lg @error('body') border-red-500 @enderror" name="content" id="content"  rows="5"></textarea>
+
+            </div>
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded font-medium" >soumettre mon commentaire</button>
+            </form>
+            
+
+            
 
         </div>
         @endforeach
